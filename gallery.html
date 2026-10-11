@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Image Gallery</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fb;
+            color: #222;
+            padding: 30px 5%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #5b4bdb;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+        }
+
+        /* Filter buttons */
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filters button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filters button:hover,
+        .filters button.active {
+            background: #5b4bdb;
+            color: white;
+        }
+
+        /* Gallery layout */
+        .gallery {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px #00000012;
+            cursor: pointer;
+            animation: appear 0.4s ease;
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .caption {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .gallery-item[hidden] {
+            display: none;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.92);
+            align-items: center;
+            justify-content: center;
+            padding: 60px 70px;
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .lightbox button {
+            position: absolute;
+            border: none;
+            color: white;
+            background: #ffffff25;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .lightbox button:hover {
+            background: #5b4bdb;
+        }
+
+        .close {
+            top: 18px;
+            right: 20px;
+        }
+
+        .prev {
+            left: 15px;
+            top: 50%;
+        }
+
+        .next {
+            right: 15px;
+            top: 50%;
+        }
+
+        .image-count {
+            position: absolute;
+            bottom: 20px;
+            color: white;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 4%;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .gallery-item img {
+                height: 150px;
+            }
+
+            .caption {
+                padding: 10px 5px;
+                font-size: 14px;
+            }
+
+            .lightbox {
+                padding: 60px 35px;
+            }
+
+            .lightbox img {
+                max-height: 65vh;
+            }
+
+            .prev {
+                left: 2px;
+            }
+
+            .next {
+                right: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📸 My Image Gallery</h1>
+        <p>Explore beautiful moments around the world</p>
+    </header>
+
+    <!-- Image filters -->
+    <div class="filters">
+        <button class="active" data-filter="all">All Photos</button>
+        <button data-filter="nature">Nature</button>
+        <button data-filter="animals">Animals</button>
+        <button data-filter="travel">Travel</button>
+        <button data-filter="cities">Cities</button>
+    </div>
+
+    <!-- Six photos -->
+    <main class="gallery" id="gallery">
+
+        <div class="gallery-item" data-category="nature">
+            <img
+                src="https://i.pinimg.com/736x/7c/d7/a4/7cd7a4551d9f9faabafe653ef7ecb599.jpg"
+                alt="Golden sunrise over a green landscape"
+                loading="lazy">
+            <div class="caption">🌄 Beautiful Sunrise</div>
+        </div>
+
+        <div class="gallery-item" data-category="animals">
+            <img
+                src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80"
+                alt="Golden retriever dog"
+                loading="lazy">
+            <div class="caption">🐶 Golden Retriever</div>
+        </div>
+
+        <div class="gallery-item" data-category="cities">
+            <img
+                src="https://cdn.pixabay.com/photo/2020/11/24/10/37/city-5772121_1280.jpg"
+                alt="City skyline"
+                loading="lazy">
+            <div class="caption">🌆 City Night Life</div>
+        </div>
+
+        <div class="gallery-item" data-category="nature">
+            <img
+                src="https://media.istockphoto.com/id/1317323736/photo/a-view-up-into-the-trees-direction-sky.jpg?s=612x612&w=0&k=20&c=i4HYO7xhao7CkGy7Zc_8XSNX_iqG0vAwNsrH1ERmw2Q="
+                alt="Sunlight shining through a green forest"
+                loading="lazy">
+            <div class="caption">🌳 Green Forest</div>
+        </div>
+
+        <div class="gallery-item" data-category="travel">
+            <img
+                src="https://cdn.pixabay.com/photo/2013/11/15/13/57/road-210913_1280.jpg"s
+                alt="Scenic outdoor travel landscape"
+                loading="lazy">
+            <div class="caption">🏞️ Travel Adventures</div>
+        </div>
+
+        <div class="gallery-item" data-category="cities">
+            <img
+                src="https://cdn.britannica.com/26/84526-050-45452C37/Gateway-monument-India-entrance-Mumbai-Harbour-coast.jpg"
+                alt="Buildings and lights in a modern city"
+                loading="lazy">
+            <div class="caption">🌃 Mumbi City</div>
+        </div>
+
+    </main>
+
+    <!-- Full-screen image viewer -->
+    <div
+        class="lightbox"
+        id="lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image viewer">
+
+        <button class="close" id="closeBtn"
+            aria-label="Close image viewer">✕</button>
+
+        <button class="prev" id="prevBtn"
+            aria-label="Previous image">❮</button>
+
+        <img id="lightboxImg" src="" alt="">
+
+        <button class="next" id="nextBtn"
+            aria-label="Next image">❯</button>
+
+        <div class="image-count" id="imageCount"></div>
+    </div>
+
+    <script>
+        const items = [
+            ...document.querySelectorAll(".gallery-item")
+        ];
+
+        const filterButtons = [
+            ...document.querySelectorAll(".filters button")
+        ];
+
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightboxImg");
+        const imageCount = document.getElementById("imageCount");
+
+        let visibleItems = [...items];
+        let currentIndex = 0;
+
+        // Open selected image
+        function openLightbox(index) {
+            if (visibleItems.length === 0) return;
+
+            currentIndex = index;
+
+            const image = visibleItems[currentIndex]
+                .querySelector("img");
+
+            lightboxImg.src = image.src;
+            lightboxImg.alt = image.alt;
+
+            imageCount.textContent =
+                `${currentIndex + 1} / ${visibleItems.length}`;
+
+            lightbox.classList.add("show");
+            document.body.style.overflow = "hidden";
+        }
+
+        // Close image viewer
+        function closeLightbox() {
+            lightbox.classList.remove("show");
+            document.body.style.overflow = "";
+        }
+
+        // Navigate between visible images
+        function moveImage(direction) {
+            if (visibleItems.length === 0) return;
+
+            currentIndex =
+                (currentIndex + direction + visibleItems.length)
+                % visibleItems.length;
+
+            openLightbox(currentIndex);
+        }
+
+        // Click a gallery card
+        items.forEach(item => {
+            item.addEventListener("click", () => {
+                visibleItems = items.filter(
+                    photo => !photo.hidden
+                );
+
+                openLightbox(visibleItems.indexOf(item));
+            });
+        });
+
+        document.getElementById("closeBtn")
+            .addEventListener("click", closeLightbox);
+
+        document.getElementById("prevBtn")
+            .addEventListener("click", () => moveImage(-1));
+
+        document.getElementById("nextBtn")
+            .addEventListener("click", () => moveImage(1));
+
+        // Click the dark background to close
+        lightbox.addEventListener("click", event => {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", event => {
+            if (!lightbox.classList.contains("show")) return;
+
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
+
+            if (event.key === "ArrowLeft") {
+                moveImage(-1);
+            }
+
+            if (event.key === "ArrowRight") {
+                moveImage(1);
+            }
+        });
+
+        // Filter photos by category
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const filter = button.dataset.filter;
+
+                filterButtons.forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+                button.classList.add("active");
+
+                items.forEach(item => {
+                    item.hidden =
+                        filter !== "all" &&
+                        item.dataset.category !== filter;
+                });
+
+                visibleItems = items.filter(
+                    item => !item.hidden
+                );
+
+                // Close viewer if the selected photo is filtered out
+                if (lightbox.classList.contains("show")) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
