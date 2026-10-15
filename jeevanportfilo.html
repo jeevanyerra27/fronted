@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Yerra | Portfolio</title>
+
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b1120;
+            color: #e5e7eb;
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        span {
+            color: #38bdf8;
+        }
+
+        /* Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 17, 32, 0.96);
+            border-bottom: 1px solid #1e293b;
+            backdrop-filter: blur(12px);
+        }
+
+        .navbar {
+            max-width: 1150px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            color: #cbd5e1;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* Home */
+        .hero {
+            min-height: 90vh;
+            max-width: 1150px;
+            margin: auto;
+            padding: 90px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            animation: slideUp 0.8s ease;
+        }
+
+        .greeting, .section-label {
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(35px, 5vw, 58px);
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .hero h2 {
+            color: #cbd5e1;
+            font-size: 24px;
+            margin-bottom: 18px;
+        }
+
+        .hero-description {
+            color: #94a3b8;
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .primary-btn {
+            background: #38bdf8;
+            color: #07111f;
+        }
+
+        .primary-btn:hover {
+            background: #7dd3fc;
+            transform: translateY(-4px);
+        }
+
+        .secondary-btn {
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+        }
+
+        .secondary-btn:hover {
+            background: #38bdf8;
+            color: #07111f;
+            transform: translateY(-4px);
+        }
+
+        /* Profile Card */
+        .hero-card {
+            min-width: 260px;
+            padding: 35px 25px;
+            text-align: center;
+            background: #111c30;
+            border: 1px solid #263750;
+            border-radius: 20px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .profile-circle {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 42px;
+            font-weight: bold;
+            color: #07111f;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+        }
+
+        .hero-card h3 {
+            font-size: 22px;
+        }
+
+        .hero-card p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #86efac;
+        }
+
+        .status span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            margin-right: 5px;
+        }
+
+        /* Common Sections */
+        .section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 85px 25px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 35px;
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+        }
+
+        .about-card {
+            padding: 30px;
+            background: #111c30;
+            border: 1px solid #263750;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .about-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            margin-bottom: 18px;
+            font-size: 22px;
+        }
+
+        .about-card p {
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .about-card h4 {
+            color: #38bdf8;
+            margin: 12px 0 5px;
+        }
+
+        /* Skills */
+        .skills-section {
+            max-width: none;
+            background: #0e1729;
+        }
+
+        .skills-section > * {
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            padding: 25px 15px;
+            text-align: center;
+            background: #111c30;
+            border: 1px solid #263750;
+            border-radius: 14px;
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.08);
+        }
+
+        .skill-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .skill-card p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .project-card {
+            padding: 27px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background: #111c30;
+            border: 1px solid #263750;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+        }
+
+        .project-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tags span {
+            background: #1e3048;
+            color: #7dd3fc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .project-link {
+            margin-top: auto;
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .project-link:hover {
+            color: #7dd3fc;
+        }
+
+        /* Resume */
+        .resume-section {
+            text-align: center;
+            background: #0e1729;
+            max-width: none;
+        }
+
+        .resume-card {
+            max-width: 650px;
+            margin: auto;
+            padding: 40px 25px;
+            border: 1px solid #263750;
+            background: #111c30;
+            border-radius: 18px;
+        }
+
+        .resume-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .resume-card h3 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .resume-card p {
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+
+        /* Contact */
+        .contact-description {
+            color: #94a3b8;
+            margin: -20px 0 30px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            padding: 25px 15px;
+            text-align: center;
+            background: #111c30;
+            border: 1px solid #263750;
+            border-radius: 14px;
+            transition: 0.3s;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+
+        .contact-card > span {
+            font-size: 30px;
+        }
+
+        .contact-card h3 {
+            margin: 10px 0 5px;
+        }
+
+        .contact-card p {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 20px;
+            text-align: center;
+            background: #070c17;
+            border-top: 1px solid #1e293b;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        .back-top {
+            display: inline-block;
+            color: #38bdf8;
+            margin-top: 12px;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero {
+                gap: 30px;
+            }
+
+            .hero-card {
+                min-width: 220px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 10px 15px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 70px;
+                padding-bottom: 70px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-card {
+                width: 100%;
+                max-width: 350px;
+                margin: 15px auto 0;
+            }
+
+            .about-content,
+            .skills-grid,
+            .projects-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 65px 20px;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+.profile-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.profile-pic {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #00e5ff;
+  box-shadow: 0 0 20px #00e5ff80;
+  transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.08);
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="#home" class="logo">Jeevan<span>.</span></a>
+
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#resume">Resume</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <p class="greeting">HELLO, WELCOME TO MY PORTFOLIO</p>
+            <h1>Hi, I'm <span>Jeevan Yerra</span></h1>
+            <h2>Computer Applications Student</h2>
+
+            <p class="hero-description">
+                I am passionate about web development, programming
+                and technology. I enjoy learning new skills and
+                building creative projects.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#projects" class="btn primary-btn">
+                    View My Projects
+                </a>
+                <a href="#contact" class="btn secondary-btn">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+<div class="profile-container">
+  <img src="linkedin.png"  alt="My Profile Picture" class="profile-pic">
+</div>
+
+        <div class="hero-card">
+            <div class="profile-circle">JY</div>
+            <h3>Jeevan Yerra</h3>
+            <p>Future Software Developer 🚀</p>
+            <div class="status"><span></span> Always Learning</div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+        <p class="section-label">GET TO KNOW ME</p>
+        <h2 class="section-title">About <span>Me</span></h2>
+
+        <div class="about-content">
+            <div class="about-card">
+                <h3>👨‍💻 Who Am I?</h3>
+                <p>
+                    I am Jeevan Yerra, a Computer Applications student
+                    at Spaces Degree College. I am interested in
+                    programming, web development and software technologies.
+                </p>
+                <p>
+                    I enjoy solving programming problems, learning new
+                    concepts and developing useful applications. My goal
+                    is to become a skilled software developer.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3>🎓 Education</h3>
+                <h4>Computer Applications</h4>
+                <p>Spaces Degree College</p>
+                <p>Learning programming and computer technologies.</p>
+
+                <h4>💼 Internship</h4>
+                <p>CodeAlpha Internship</p>
+                <p>Developing practical technical skills through projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section skills-section">
+        <p class="section-label">WHAT I KNOW</p>
+        <h2 class="section-title">My <span>Skills</span></h2>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">🌐</div>
+                <h3>HTML</h3>
+                <p>Web page structure</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🎨</div>
+                <h3>CSS</h3>
+                <p>Styling and responsive design</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">☕</div>
+                <h3>Java</h3>
+                <p>Object-oriented programming</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">💻</div>
+                <h3>C Language</h3>
+                <p>Programming fundamentals</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🧠</div>
+                <h3>DSA</h3>
+                <p>Data structures and algorithms</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">🗄️</div>
+                <h3>Oracle DB</h3>
+                <p>Database management</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+        <p class="section-label">WHAT I HAVE BUILT</p>
+        <h2 class="section-title">My <span>Projects</span></h2>
+
+        <div class="projects-grid">
+            <article class="project-card">
+                <div class="project-icon">🎵</div>
+                <h3>Music Player</h3>
+                <p>
+                    A responsive music player with play, pause, next,
+                    previous, playlist and volume controls.
+                </p>
+                <div class="tags">
+                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                </div>
+                <a href="https://github.com/" target="_blank"
+                   rel="noopener noreferrer" class="project-link">
+                    View Project ↗
+                </a>
+            </article>
+
+            <article class="project-card">
+                <div class="project-icon">🖼️</div>
+                <h3>Image Gallery</h3>
+                <p>
+                    A responsive image gallery with category filters,
+                    lightbox and next and previous image controls.
+                </p>
+                <div class="tags">
+                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                </div>
+                <a href="https://github.com/" target="_blank"
+                   rel="noopener noreferrer" class="project-link">
+                    View Project ↗
+                </a>
+            </article>
+
+            <article class="project-card">
+                <div class="project-icon">🧮</div>
+                <h3>Neon Calculator</h3>
+                <p>
+                    A stylish calculator featuring arithmetic operations
+                    and calculation history.
+                </p>
+                <div class="tags">
+                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                </div>
+                <a href="https://github.com/" target="_blank"
+                   rel="noopener noreferrer" class="project-link">
+                    View Project ↗
+                </a>
+            </article>
+        </div>
+    </section>
+
+    
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+        <p class="section-label">LET'S CONNECT</p>
+        <h2 class="section-title">Contact <span>Me</span></h2>
+
+        <p class="contact-description">
+            Have a project idea or an opportunity? Feel free to connect!
+        </p>
+
+        <div class="contact-grid">
+            <a href="mailto:jeevanyerra14@gmail.com" class="contact-card">
+                <span>📧</span>
+                <h3>Email Me</h3>
+                <p>jeevanyerra14gmail.com</p>
+            </a>
+
+            <a href="https://www.linkedin.com/" target="_blank"
+               rel="noopener noreferrer" class="contact-card">
+                <span>💼</span>
+                <h3>LinkedIn</h3>
+                <p>Visit my profile</p>
+            </a>
+
+            <a href="https://github.com/" target="_blank"
+               rel="noopener noreferrer" class="contact-card">
+                <span>🐙</span>
+                <h3>GitHub</h3>
+                <p>Explore my code</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Designed & Built by <span>Jeevan Yerra</span></p>
+        <p>© 2026 All Rights Reserved.</p>
+        <a href="#home" class="back-top">Back to Top ↑</a>
+    </footer>
+
+</body>
+</html>
